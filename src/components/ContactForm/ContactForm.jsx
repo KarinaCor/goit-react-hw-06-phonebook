@@ -3,6 +3,7 @@ import * as SC from './ContactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContacts } from 'redux/contact/contact.reducer';
 import { getContacts } from 'redux/contact/contact.selector';
+import { nanoid } from 'nanoid';
 
 const ContactForm = ({ handleSubmit }) => {
   const dispatch = useDispatch();
@@ -22,7 +23,12 @@ const ContactForm = ({ handleSubmit }) => {
       alert(`${name} is already in contacts!`);
       return;
     }
-    dispatch(addContacts({ name, number }));
+    const newContact = {
+      name,
+      number,
+      id: nanoid(),
+    };
+    dispatch(addContacts(newContact));
     setName('');
     setNumber('');
   };
